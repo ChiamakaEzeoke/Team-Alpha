@@ -88,3 +88,6 @@ def IDFS(canvas, root, currentNode, nodeToFind, currentLevel):
         stopIteration = DLS(canvas, root, currentNode, nodeToFind, currentLevel, maxLevel, color)
 
         maxLevel = maxLevel + 1
+
+def BiDirectionalSearch():
+    return None
