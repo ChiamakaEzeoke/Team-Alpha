@@ -2,17 +2,28 @@ from tkinter import *
 from Nodes import *
 from SearchAlgorithms import *
 
-nodeK = Nodes([790, 380, 850, 440], None, None, "K")
-nodeJ = Nodes([540, 380, 600, 440], None, None, "J")
-nodeI = Nodes([460, 380, 520, 440], None, None, "I")
-nodeH = Nodes([210, 380, 270, 440], None, None, "H")
-nodeG = Nodes([1080, 260, 1140, 320], None, None, "G")
-nodeF = Nodes([830, 260, 890, 320], None, None, "F")
-nodeE = Nodes([660, 260, 720, 320], nodeJ, nodeK, "E")
-nodeD = Nodes([330, 260, 390, 320], nodeH, nodeI, "D")
-nodeC = Nodes([950, 140, 1010, 200], nodeF, nodeG, "C")
-nodeB = Nodes([500, 140, 560, 200], nodeD, nodeE, "B")
-nodeA = Nodes([720, 20, 780, 80], nodeB, nodeC, "A")
+nodeA = nodeB = nodeC = nodeD = nodeE = nodeF = nodeG = nodeH = nodeI = nodeJ = nodeK = None
+
+
+nodeK = Nodes(cordinates=[790, 380, 850, 440], left=None, right=None, value="K", head=nodeE)
+nodeJ = Nodes(cordinates=[540, 380, 600, 440], left=None, right=None, value="J", head=nodeE)
+nodeI = Nodes(cordinates=[460, 380, 520, 440], left=None, right=None, value="I", head=nodeD)
+nodeH = Nodes(cordinates=[210, 380, 270, 440], left=None, right=None, value="H", head=nodeD)
+nodeG = Nodes(cordinates=[1080, 260, 1140, 320], left=None, right=None, value="G", head=nodeC)
+nodeF = Nodes(cordinates=[830, 260, 890, 320], left=None, right=None, value="F", head=nodeC)
+nodeE = Nodes(cordinates=[660, 260, 720, 320], left=nodeJ, right=nodeK, value="E", head=nodeB)
+nodeD = Nodes(cordinates=[330, 260, 390, 320], left=nodeH, right=nodeI, value="D", head=nodeB)
+nodeC = Nodes(cordinates=[950, 140, 1010, 200], left=nodeF, right=nodeG, value="C", head=nodeA)
+nodeB = Nodes(cordinates=[500, 140, 560, 200], left=nodeD, right=nodeE, value="B", head=nodeA)
+nodeA = Nodes(cordinates=[720, 20, 780, 80], left=nodeB, right=nodeC, value="A", head=nodeA)
+
+nodeA.head = nodeB.head = nodeC.head = nodeA
+nodeD.head = nodeE.head = nodeB
+nodeF.head = nodeG.head = nodeC
+nodeH.head = nodeI.head = nodeD
+nodeK.head = nodeJ.head = nodeE
+
+
 currentNode = nodeA
 nodeToFind = nodeK
 
@@ -122,26 +133,24 @@ def InitializeWindow(canvas, root):
     # node k starts from x2 of RightEdgeE
     NodeK = canvas.create_oval(790, 380, 850, 440)
 
-
 def Reset():
     canvas.delete("all")
     InitializeWindow(canvas, root)
 
-
 def DepthFirstSearch():
     DFS(canvas, currentNode, nodeToFind)
-
 
 def BreathFirstSearch():
     BFS(canvas, currentNode, nodeToFind)
 
-
 def DepthLimitedSearch():
     DLS(canvas, currentNode, nodeToFind, 0)
 
-
 def IteravtiveDepthFirstSearch():
-    IDFS(canvas, currentNode, nodeToFind, 0)
+    IDFS(canvas= canvas,currentNode= currentNode,nodeToFind= nodeToFind, currentLevel= 0)
+
+def BidrirectionalSearch():
+    BDS(canvas=canvas, currentNode=currentNode, nodeToFind=nodeToFind)
 
 
 root = Tk()
@@ -151,25 +160,30 @@ root.geometry("3840x2340")
 canvas = Canvas(root, width=1840, height=540)
 canvas.pack(pady=10)
 
-clear_button = Button(root, text="Reset", width=10, height=2, bg="green", fg="white", command=Reset)
+clear_button = Button(root, text="Reset", width=10, height=2, bg="green", fg="red", command=Reset)
 clear_button.place(x=10, y=750)
 
-dfs_button = Button(root, text="Depth First Search", width=22, height=2, bg="black", fg="white",
+dfs_button = Button(root, text="Depth First Search", width=22, height=2, bg="black", fg="red",
                     command=DepthFirstSearch)
 dfs_button.place(x=100, y=750)
 
-bfs_button = Button(root, text="Breath First Search", width=22, height=2, bg="black", fg="white",
+bfs_button = Button(root, text="Breath First Search", width=22, height=2, bg="black", fg="red",
                     command=BreathFirstSearch)
 bfs_button.place(x=270, y=750)
 
-dls_button = Button(root, text="Depth Limited Search", width=22, height=2, bg="black", fg="white",
+dls_button = Button(root, text="Depth Limited Search", width=22, height=2, bg="black", fg="red",
                     command=DepthLimitedSearch)
 dls_button.place(x=440, y=750)
 
-iterative_dfs_button = Button(root, text="Iterative Depth First Search", width=25, height=2, bg="black", fg="white",
+iterative_dfs_button = Button(root, text="Iterative Depth First Search", width=25, height=2, bg="black", fg="red",
                               command=IteravtiveDepthFirstSearch)
 iterative_dfs_button.place(x=610, y=750)
+
+biDirectional_search_button = Button(root, text="BiDirectional Search", width=25, height=2, bg="black", fg="red",
+                              command=BidrirectionalSearch)
+biDirectional_search_button.place(x=780, y=750)
 
 InitializeWindow(canvas, root)
 
 root.mainloop()
+
