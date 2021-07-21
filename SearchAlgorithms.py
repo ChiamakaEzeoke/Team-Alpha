@@ -106,15 +106,23 @@ def BDS(canvas, currentNode, nodeToFind):
         topElement = searchingDown.get()
         canvas.create_oval(topElement.cordinates[0], topElement.cordinates[1], topElement.cordinates[2],
                        topElement.cordinates[3], fill="red")
+
+        canvas.update()
+        time.sleep(1)
+        
         exploredNodes.append(topElement)
 
         if topElement.head is not None and topElement.head not in exploredNodes:
             searchingDown.put(topElement.head)
+
         if topElement.left is not None and topElement.left not in exploredNodes:
             searchingDown.put(topElement.left)
+
         if topElement.right is not None and topElement.right not in exploredNodes:
             searchingDown.put(topElement.right)
 
+
+        
         # Check for Intersection after searching down
         intersectionList = CheckForIntersection(searchingDown.queue, searchingUp.queue)
 
@@ -122,29 +130,46 @@ def BDS(canvas, currentNode, nodeToFind):
             intersectionNode = intersectionList[0]
             canvas.create_oval(intersectionNode.cordinates[0], intersectionNode.cordinates[1], intersectionNode.cordinates[2],
                        intersectionNode.cordinates[3], fill="blue")
+
+            canvas.update()
+            time.sleep(1)
+
             intersectionFound = True
             break
+
+        
 
         # Searching Up
         topElement = searchingUp.get()
         canvas.create_oval(topElement.cordinates[0], topElement.cordinates[1], topElement.cordinates[2],
                        topElement.cordinates[3], fill="red")
+
+        canvas.update()
+        time.sleep(1)
+
         exploredNodes.append(topElement)
 
         if topElement.head is not None and topElement.head not in exploredNodes:
             searchingUp.put(topElement.head)
+
         if topElement.left is not None and topElement.left not in exploredNodes:
             searchingUp.put(topElement.left)
+
         if topElement.right is not None and topElement.right not in exploredNodes:
             searchingUp.put(topElement.right)
 
+        
         # Check for intersection after searching up
         intersectionList = CheckForIntersection(searchingDown.queue, searchingUp.queue)
-        
+
         if len(intersectionList) > 0:
             intersectionNode = intersectionList[0]
             canvas.create_oval(intersectionNode.cordinates[0], intersectionNode.cordinates[1], intersectionNode.cordinates[2],
                        intersectionNode.cordinates[3], fill="blue")
+
+            canvas.update()
+            time.sleep(1)
+
             intersectionFound = True
             break
 
