@@ -7,3 +7,6 @@ class Nodes:
         self.value = value
         self.head = head
 
+    def __str__(self) -> str:
+        return self.value
+

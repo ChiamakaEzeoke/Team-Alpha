@@ -176,7 +176,6 @@ def BDS(canvas, currentNode, nodeToFind):
 
 def CheckForIntersection(queue1, queue2):
     intersectionList = [value for value in queue1 if value in queue2]
-    print(intersectionList)
     return intersectionList
 
 def UCS():
