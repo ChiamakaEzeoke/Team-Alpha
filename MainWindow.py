@@ -3,7 +3,7 @@ from Nodes import *
 from SearchAlgorithms import *
 
 nodeA = nodeB = nodeC = nodeD = nodeE = nodeF = nodeG = nodeH = nodeI = nodeJ = nodeK = None
-
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 nodeK = Nodes(cordinates=[790, 380, 850, 440], left=None, right=None, value="K", head=nodeE)
 nodeJ = Nodes(cordinates=[540, 380, 600, 440], left=None, right=None, value="J", head=nodeE)
