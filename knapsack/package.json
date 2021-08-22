@@ -1,0 +1,8 @@
+{
+    "name": "anime",
+    "version": "1.0.0",
+    "description": "app",
+    "main": "index.js",
+    "type": "module"
+  }
+  

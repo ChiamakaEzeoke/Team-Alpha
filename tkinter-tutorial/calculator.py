@@ -7,6 +7,8 @@ from tkinter import *
 root = Tk()
 root.title('Simple Calculator')
 
+root.attributes('-fullscreen', True)  
+
 stack = []
 
 
