@@ -33,7 +33,6 @@ def BFS(canvas, currentNode, nodeToFind):
 
     while myQueue.empty() is False:
         topElement = myQueue.get()
-        print(topElement.value)
         if topElement.value is nodeToFind.value:
             canvas.create_oval(topElement.cordinates[0], topElement.cordinates[1], topElement.cordinates[2],
                                topElement.cordinates[3], fill="blue")
@@ -45,7 +44,7 @@ def BFS(canvas, currentNode, nodeToFind):
         canvas.update()
 
         time.sleep(1)
-        if topElement.left is not None: 
+        if topElement.left is not None:
             myQueue.put(topElement.left)
 
         if topElement.right is not None:
@@ -109,7 +108,7 @@ def BDS(canvas, currentNode, nodeToFind):
 
         canvas.update()
         time.sleep(1)
-        
+
         exploredNodes.append(topElement)
 
         if topElement.head is not None and topElement.head not in exploredNodes:
@@ -122,7 +121,7 @@ def BDS(canvas, currentNode, nodeToFind):
             searchingDown.put(topElement.right)
 
 
-        
+
         # Check for Intersection after searching down
         intersectionList = CheckForIntersection(searchingDown.queue, searchingUp.queue)
 
@@ -137,7 +136,7 @@ def BDS(canvas, currentNode, nodeToFind):
             intersectionFound = True
             break
 
-        
+
 
         # Searching Up
         topElement = searchingUp.get()
@@ -158,7 +157,7 @@ def BDS(canvas, currentNode, nodeToFind):
         if topElement.right is not None and topElement.right not in exploredNodes:
             searchingUp.put(topElement.right)
 
-        
+
         # Check for intersection after searching up
         intersectionList = CheckForIntersection(searchingDown.queue, searchingUp.queue)
 

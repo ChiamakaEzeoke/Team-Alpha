@@ -7,15 +7,79 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
     <title>Knapsack APP</title>
 </head>
-<body class="px-20 py-4"> 
-   <div class="flex justify-center mt-20">
-       <div class="items w-12/12 xl:w-8/12 border-2 p-10" >
+<body class="px-20 py-4" >
+   <div class="flex justify-center mt-20" id="knapsack">
+       <div class="items w-12/12 xl:w-9/12 mr-20 border-2 p-10" >
         <button class='text-white bg-blue-500 rounded-lg px-6 py-2' id='play-btn'>Play</button>
-                <div class="mt-10" id="items"></div>
-                
+           <table class="min-w-full divide-y divide-gray-200 mt-4">
+               <thead class="bg-gray-50">
+               <tr>
+                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                       Item
+                   </th>
+                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                       Profit
+                   </th>
+                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                       Weight
+                   </th>
+                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                       Profit/Weight
+                   </th>
+                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                       Edit
+                   </th>
+               </tr>
+               </thead>
+               <tbody class="bg-white divide-y divide-gray-200">
+               <tr v-for="(item, index) in items" :key="index">
+                   <td class="px-6 py-4 whitespace-nowrap">
+                       {{ item.id }}
+                   </td>
+                   <td class="px-6 py-4 whitespace-nowrap">
+                       {{ item.profit}}
+                   </td>
+                   <td class="px-6 py-4 whitespace-nowrap">
+                       {{ item.weight }}
+                   </td>
+                   <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                   {{ item.getRatio() }}
+                  </span>
+                   </td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                       <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                   </td>
+               </tr>
+               </tbody>
+           </table>
+           <div class="mt-10" id="items" style="display: none"></div>
+           <button @click="walkSaviour()">WALK</button>
+           <div class="flex mt-40" >
+               <div class="w-2/12 mt-28">
+                   <div class="cylinder">
+                       <div class="water" id="water"></div>
+                   </div>
+               </div>
+               <div class="w-8/12 justify-end relative" id="wrapper">
+                   <div class="saviour"  id="saviour"></div>
+               </div>
+               <div class="w-2/12 flex flex-wrap">
+                   <div class="w-40 h-14 ml-10  rounded-lg pt-4 flex flex-wrap justify-center bg-red-400 mt-4" v-for="(item, index) in queue" :id="item.id" :key="index">
+                       {{item.getRatio()}}
+                   </div>
+               </div>
+           </div>
         </div>
+       <div class="xl:w-3/12 mt-96 ">
+           <h1 class="text-xl mb-2 text-black">Terminal</h1>
+           <div class="rounded-xl bg-black h-96 w-full overflow-scroll font-sm text-white p-6">
+                <p class="text-sm" v-for="(log, index) in logs" :key="index">{{log}}</p>
+           </div>
+       </div>
    </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="main.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+   <script src="main.js"></script>
 </body>
 </html>
