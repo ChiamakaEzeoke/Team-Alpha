@@ -119,7 +119,6 @@ const playButton = document.getElementById('play-btn')
 playButton.addEventListener('click', knapsack)
 
 
-
 new Vue({
     el: '#knapsack',
     data() {
@@ -134,6 +133,8 @@ new Vue({
             queue: [],
             logs: [],
             itemToTake: null,
+            knapsackWeight: 15,
+            totalProfits: 0,
         }
     },
     mounted() {
@@ -168,7 +169,17 @@ new Vue({
                     this.turnSaviourRight()
                     return
                 }
+                let soundEl = document.getElementById('sound')
+                if (this.knapsackWeight === 0) {
+                    this.logs.push('Our Knapsack bag is full')
+                    soundEl.pause()
+                    let over = document.getElementById('over')
+                    over.play()
+                    alert(`Saviour's Knapsack is full, total profit made is ${this.totalProfits}`)
+                    return
+                }
                 this.walkRight+=1
+                soundEl.play()
                 const saviourEl = document.getElementById('saviour')
                 saviourEl.style.backgroundPosition =  (-75 * this.stepNum) + "px"
                 this.divPosition = this.divPosition + (this.direction * this.speed);
@@ -194,6 +205,8 @@ new Vue({
             elementText.appendChild(elementTextNode)
             element.appendChild(elementText)
             wrapper.appendChild(element)
+            let take = document.getElementById('take')
+            take.play()
             this.createLog('item with '+ item.id +' in view')
         },
         turnSaviourLeft() {
@@ -208,9 +221,18 @@ new Vue({
             //TODO the saviour would push item into the sack
             const waterEl = document.getElementById('water')
             const item = document.getElementById('taking ' + this.itemToTake.id)
-            console.log(waterEl.clientHeight)
             item.style.display = 'none'
-            waterEl.style.height =   ( waterEl.clientHeight + ((this.itemToTake.getRatio() / 15) * 450)) + 'px'
+            // Sets the Fractional pat of the knapsack
+            if (this.knapsackWeight < this.itemToTake.weight) {
+                this.logs.push('Fractional part of Knapsack taken')
+                this.itemToTake.setProfit(this.knapsackWeight)
+                this.itemToTake.setWeight(this.knapsackWeight)
+            }
+            this.knapsackWeight -= this.itemToTake.weight
+            this.totalProfits += this.itemToTake.profit
+            let push = document.getElementById('push')
+            push.play()
+            waterEl.style.height =   waterEl.clientHeight + (this.itemToTake.weight / 15 * 450)  + 'px'
         },
         moveToKnapsack(){
             if (this.direction === 1) {

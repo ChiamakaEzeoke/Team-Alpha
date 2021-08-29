@@ -54,7 +54,6 @@
                </tbody>
            </table>
            <div class="mt-10" id="items" style="display: none"></div>
-           <button @click="walkSaviour()">WALK</button>
            <div class="flex mt-40" >
                <div class="w-2/12 mt-28">
                    <div class="cylinder">
@@ -70,6 +69,7 @@
                    </div>
                </div>
            </div>
+           <button class='text-white flex justify-center m-auto mt-16 bg-blue-500 rounded-lg text-xl px-10 py-6' @click="walkSaviour()">WALK SAVIOUR</button>
         </div>
        <div class="xl:w-3/12 mt-96 ">
            <h1 class="text-xl mb-2 text-black">Terminal</h1>
@@ -77,6 +77,18 @@
                 <p class="text-sm" v-for="(log, index) in logs" :key="index">{{log}}</p>
            </div>
        </div>
+       <audio id="sound">
+           <source src="./drum.mp3" type="audio/mpeg">
+       </audio>
+       <audio id="take">
+           <source src="./take.wav" type="audio/mpeg">
+       </audio>
+       <audio id="push">
+           <source src="./push.wav" type="audio/mpeg">
+       </audio>
+       <audio id="over">
+           <source src="./over.wav" type="audio/mpeg">
+       </audio>
    </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
