@@ -6,7 +6,6 @@ class QueueElement {
         this.priority = priority;
     }
 }
-
 class PriorityQueue {
     constructor() {
         this.items = [];
@@ -40,6 +39,7 @@ class PriorityQueue {
         return str;
     }
 }
+
 class Item{
     constructor(id, profit, weight) {
         this.id = id
@@ -82,42 +82,6 @@ const objects = [
     new Item('G', 4, 2),
 ]
 
-const items = document.getElementById('items')
-objects.forEach(item => {
-    const element = document.createElement('div')
-    element.id = item.id
-    element.classList.add('box')
-    const elementText = document.createElement('p')
-    elementTextNode = document.createTextNode(`Ratio: ${item.getRatio()}`)
-    elementText.appendChild(elementTextNode)
-    element.appendChild(elementText)
-    items.appendChild(element)
-})
-const knapsack = async () => {
-    let capacity = 15
-    const timer = ms => new Promise(res => setTimeout(res, ms))
-    const profits = []
-    let totalProfits = 0
-    while (capacity != 0 && !queue.isEmpty()) {
-        const mostWeighted = queue.dequeue()
-        if (capacity < mostWeighted.element.weight) {
-            mostWeighted.element.setProfit(capacity)
-            mostWeighted.element.setWeight(capacity)
-        }
-        capacity -= mostWeighted.element.weight
-        profits.push(mostWeighted)
-        updateUI(mostWeighted.element)
-        totalProfits+= mostWeighted.element.profit
-        await timer(2500); // then t
-    }
-    function updateUI(object) {
-        const element = document.getElementById(object.id)
-        element.style.backgroundColor = 'green'
-    }
-}
-const playButton = document.getElementById('play-btn')
-playButton.addEventListener('click', knapsack)
-
 
 new Vue({
     el: '#knapsack',
@@ -134,6 +98,7 @@ new Vue({
             logs: [],
             itemToTake: null,
             knapsackWeight: 15,
+            knapsackConst: 15,
             totalProfits: 0,
         }
     },
@@ -232,7 +197,7 @@ new Vue({
             this.totalProfits += this.itemToTake.profit
             let push = document.getElementById('push')
             push.play()
-            waterEl.style.height =   waterEl.clientHeight + (this.itemToTake.weight / 15 * 450)  + 'px'
+            waterEl.style.height =   waterEl.clientHeight + (this.itemToTake.weight / this.knapsackConst * 450)  + 'px'
         },
         moveToKnapsack(){
             if (this.direction === 1) {
