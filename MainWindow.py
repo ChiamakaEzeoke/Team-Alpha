@@ -6,7 +6,7 @@ nodeA = nodeB = nodeC = nodeD = nodeE = nodeF = nodeG = nodeH = nodeI = nodeJ = 
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 nodeK = Nodes(cordinates=[790, 380, 850, 440], left=None, right=None, value="K", head=nodeE)
-nodeJ = Nodes(cordinates=[540, 380, 600, 440], left=None, right=None, value="J", head=nodeE)
+nodeJ = Nodes(cordinates=[540, 380, 600,    440], left=None, right=None, value="J", head=nodeE)
 nodeI = Nodes(cordinates=[460, 380, 520, 440], left=None, right=None, value="I", head=nodeD)
 nodeH = Nodes(cordinates=[210, 380, 270, 440], left=None, right=None, value="H", head=nodeD)
 nodeG = Nodes(cordinates=[1080, 260, 1140, 320], left=None, right=None, value="G", head=nodeC)
@@ -41,7 +41,6 @@ def InitializeWindow(canvas, root):
 
     LeftEdgeA = canvas.create_line(720, 80, 550, 130)
     RightEdgeA = canvas.create_line(780, 80, 950, 130)
-
     LabelB = Label(
         root,
         text='B',
@@ -151,6 +150,8 @@ def IteravtiveDepthFirstSearch():
 
 def BidrirectionalSearch():
     BDS(canvas=canvas, currentNode=currentNode, nodeToFind=nodeToFind)
+
+
 
 
 root = Tk()
