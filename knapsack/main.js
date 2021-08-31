@@ -6,6 +6,7 @@ class QueueElement {
         this.priority = priority;
     }
 }
+
 class PriorityQueue {
     constructor() {
         this.items = [];
