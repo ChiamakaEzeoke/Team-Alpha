@@ -11,7 +11,7 @@ def DFS(canvas, currentNode, valueToFind):
                            currentNode.coords[3], fill="green")
         raise Exception("This was meant to happen, don't panic")
     canvas.create_oval(currentNode.coords[0], currentNode.coords[1], currentNode.coords[2],
-                       currentNode.coords[3], fill="cyan")
+                       currentNode.coords[3], fill="purple")
 
     if currentNode.left is None and currentNode.right is None:
         return
@@ -38,7 +38,7 @@ def BFS(canvas, currentNode, valueToFind):
             break
 
         canvas.create_oval(current.coords[0], current.coords[1], current.coords[2],
-                           current.coords[3], fill="cyan")
+                           current.coords[3], fill="purple")
 
         canvas.update()
 

@@ -8,9 +8,16 @@ root = Tk()
 root.title("Group Alpha")
 root.geometry("3840x2340")
 
-canvas = Canvas(root, width=1840, height=450)
+canvas = Canvas(root, width=1840, height=450, bg='cyan')
+
 canvas.pack(pady=10)
 
+frame = Frame(root, bg = "orange", width=1000, height=300)
+frame.place(x=10, y=750)
+
+
+textBox=Entry(frame, width=30)
+textBox.grid(row=2, column=2)
 
 def init():
     values = [1,2,3,4,5, 6, 7,8, 9]
@@ -18,8 +25,6 @@ def init():
     coords = [ [720, 20, 780, 80], [500, 140, 560, 200], [950, 140, 1010, 200], [330, 260, 390, 320], [660, 260, 720, 320], [830, 260, 890, 320], [1080, 260, 1140, 320], [210, 380, 270, 440], [460, 380, 520, 440], [540, 380, 600, 440],[790, 380, 850, 440]]
 
     tree = serialise(values, coords)
-
-    print(tree)
 
     height = getHeight(tree)
 
@@ -31,6 +36,8 @@ def init():
 def clear():
     canvas.delete("all")
     init()
+    textBox.delete(0, END)
+    
 
 
 
@@ -40,7 +47,6 @@ def createTree(node, depth):
         return
     # Elements of the node are its label and Edges 
     [x, y, xn, yn] = node.coords
-    print(x)
     createOval(x, y ,xn, yn)
     label = createLabel(node.val, x+20, y+25)
     if node.left:
@@ -72,22 +78,42 @@ def createEdges(x, y, xn, yn):
 head = init()
 
 
-def createButtons(canvas, head, find):
-    frame = Frame(root, bg = "orange", width=1000, height=300)
-    frame.place(x=10, y=750)
+textBox=Entry(frame, width=30)
+textBox.grid(row=2, column=2)
+
+def retrieve_input():
+    if textBox.get():
+        return int(textBox.get())
+    messagebox.show('Please enter Input')
+
+
+
+
+def createButtons(canvas, head):
     Button(frame, text='Clear Result', command=clear, width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0,column=0)
-    Button(frame, text='Depth First Search', command=lambda: DFS(canvas, head, find), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0,column=1)
-    Button(frame, text='Breath First Search', command=lambda: BFS(canvas, head, find), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=2)
-    Button(frame, text='Depth Limiting Search', command=lambda: DLS(canvas, head, find), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=3)
-    Button(frame, text='Iterative Deepening Search', command=lambda: IDFS(canvas, head, find), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=4)
-    Button(frame, text='Uniform Cost Search', command=lambda: UCS(canvas, head, find), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=5)
+    Button(frame, text='Depth First Search', command=lambda: DFS(canvas, head, retrieve_input()), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0,column=1)
+    Button(frame, text='Breath First Search', command=lambda: BFS(canvas, head, retrieve_input()), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=2)
+    Button(frame, text='Depth Limiting Search', command=lambda: DLS(canvas, head, retrieve_input()), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=3)
+    Button(frame, text='Iterative Deepening Search', command=lambda: IDFS(canvas, head, retrieve_input()), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=4)
+    Button(frame, text='Uniform Cost Search', command=lambda: UCS(canvas, head, retrieve_input()), width=22, height=4, bg='#ffb3fe', fg="black").grid(row=0, column=5)
+
+
+   
+
+
+
+
+
+
 
 head = init()
 
 
 find = 6
 
-createButtons(canvas, head, find)
+createButtons(canvas, head)
+
+
 
 
 
